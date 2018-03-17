@@ -49,27 +49,35 @@
 				,#{DOMSUB}
 				,#{DOMCONT}
 				,sysdate,
-				'임시저장'
+				'temp'
+              )		
+	</insert>
+	
+	<insert id="Lineselect" parameterType="com.approval.vo.Document">
+		insert into ALINE(
+			                    LINESEQ
+								,DOMSEQ
+								,APPROVALEMP
+								,APPROVALDATE
+								,PPROVALSTATUS
+			                    )
+		values(
+				(select nvl(Max(LINESEQ),0)+1 from ALINE)
+				,#{DOMSEQ}
+				,#{EMPID}
+				,sysdate
+				,'temp'
+				
               )		
 	</insert>
 	
 	
 	
+	
 	<select id="list" parameterType="hashmap" resultType="com.approval.vo.DocEmpLine">
-		select
-			DOMSEQ				
-			,EMPID			
-			,DOMSUB			
-			,DOMCONT			
-			,DOMREGDATE		
-			,APPROVALDATE		
-			,APPROVALEMP		
-			,APPROVALSTATUS	
-			,EMPSEQ			
-			,EMPNAME		
-			,EMPGRADE	
+		
 				
-		From (select 				
+			select 				
 					ADOCUMENT.DOMSEQ				
 					,ADOCUMENT.EMPID			
 					,ADOCUMENT.DOMSUB			
@@ -85,35 +93,23 @@
 				FROM ADOCUMENT left join AEMPLOYEE
 				ON ADOCUMENT.EMPID=AEMPLOYEE.EMPID
 				WHERE  1=1 
-                
-                <if test="EMPGRADE == '사원'">
+			
+			   <if test=" EMPGRADE == '사원' ">
                     and  ADOCUMENT.EMPID = #{EMPID}
-                </if>
+               </if>
                 
-                <if test="EMPGRADE == '대리'">
+               <if test=" EMPGRADE == '대리' ">
                     and ADOCUMENT.EMPID = #{EMPID}                     	
-                </if>
+               </if>
                 
-                <if test="EMPGRADE == '과장'">
-                    and  ADOCUMENT.APPROVALSTATUS ='결재대기'             	  
-                </if>
+               <if test=" EMPGRADE == '과장' ">
+                    and  APPROVALSTATUS ='wait'             	  
+               </if>
                 
-                <if test="EMPGRADE == '부장'">
-                    and  ADOCUMENT.APPROVALSTATUS ='결재중'
-                </if>
-                
-                
-			)	
-				
-				
-				
-				<!-- ADOCUMENT.EMPID = #{EMPID} -->
-			  
-			 
-			 
-			 
-			 <!-- 리스트 완성후 검색은 해야됨 -->
-		<!-- 	 where 1=1
+               <if test=" EMPGRADE == '부장' ">
+                    and  APPROVALSTATUS ='app'
+               </if>
+	
 			
 		<if test="serchtype == 'EMPNAME' ">
 			and EMPNAME like '%' || #{serchtext} || '%'
@@ -128,10 +124,9 @@
 		</if>	
 			
 		<if test="stdate != null and stdate != '' ">
-			and to_date(DOMREGDATE,'yyyy.MM.dd') between #{stdate} and #{endate}
-			and to_char(DOMREGDATE,'yyyy-MM-dd') >= #{stdate}
-			and to_char(DOMREGDATE,'yyyy-MM-dd') <![CDATA[<=]]> #{endate} 
-		</if> -->	
+			and to_char(DOMREGDATE,'MM/dd/yyyy') >= #{stdate}
+			and to_char(DOMREGDATE,'MM/dd/yyyy') <![CDATA[<=]]> #{endate} 
+		</if> 
 					
 			
 	</select>
@@ -141,21 +136,29 @@
 		update ADOCUMENT 
 		set 
 		
-		<if test=" APPROVALSTATUS == '임시저장' ">
-			APPROVALSTATUS =  '결재대기'
+		<if test=" APPROVALSTATUS == 'temp' ">
+			APPROVALSTATUS =  'wait'
 		</if>
 		
-		<if test=" APPROVALSTATUS == '결재대기' ">
-			APPROVALSTATUS =  '결재중'
+		<if test=" APPROVALSTATUS == 'wait' ">
+			APPROVALSTATUS =  'app'
 		</if>
 		
-		<if test=" APPROVALSTATUS == '결재중' ">
-			APPROVALSTATUS =  '결재완료'
+		<if test=" APPROVALSTATUS == 'app' ">
+			APPROVALSTATUS =  'done'
 		</if>
 				
 		where DOMSEQ = #{DOMSEQ}
+				
+	</update>
+	
+	
+	<update id="approval.updateban" parameterType="com.approval.vo.Document">
 		
-		
+		update ADOCUMENT 
+		set APPROVALSTATUS =  'ban'		
+		where DOMSEQ = #{DOMSEQ}
+				
 	</update>
 	
 	

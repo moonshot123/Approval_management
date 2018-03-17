@@ -57,6 +57,22 @@ public class approvalServiceImpl implements approvalService{
 		return cnt;
 	}
 
+
+	@Override
+	public int Lineselect(Document document) {
+		// TODO Auto-generated method stub
+		int cnt = approvalDao.Lineselect(document);
+		return cnt;
+	}
+
+
+	@Override
+	public int banline(Document document) {
+		// TODO Auto-generated method stub
+		int cnt = approvalDao.updateban(document);
+		return cnt;
+	}
+
 	
 	
 }

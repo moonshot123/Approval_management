@@ -22,6 +22,11 @@ $(function () {
 		$("#appline").submit();
 	});
 	
+	$("#banBtn").click(function(){
+		$("#appline").attr("action","ban.ap");
+		$("#appline").attr("method","get");
+		$("#appline").submit();
+	});
 	
 	
 })
@@ -40,9 +45,18 @@ $(function () {
 				<td width="70">부장</td>
 			</tr>
 			<tr>
-				<td><input type="checkbox" disabled="true"></td>
-				<td><input type="checkbox" disabled="true"></td>
-				<td><input type="checkbox" disabled="true"></td>
+				<c:set var="status" value="${detail.APPROVALSTATUS}"/>
+				<td><input type="checkbox" disabled="true" 
+					<c:if test="${status eq 'wait' || status eq 'app' || status eq 'done'}"> checked="checked" </c:if>
+				></td>
+				
+				<td><input type="checkbox" disabled="true"
+					<c:if test="${status eq 'app' || status eq 'done'}"> checked="checked" </c:if>
+				></td>
+				
+				<td><input type="checkbox" disabled="true"
+					<c:if test="${status eq 'done'}"> checked="checked" </c:if>
+				></td>
 			</tr>
 		</table>
 		<br>
@@ -59,7 +73,7 @@ $(function () {
 	
 		<tr>
 			<td>작성자</td>
-			<td><input type="text" name="" id="" value="${sessionEMPNAME}" readonly></td>
+			<td><input type="text" name="" id="" value="${emp.EMPNAME}" readonly></td>
 		</tr>
 	
 		<tr>
@@ -88,23 +102,21 @@ $(function () {
 				</c:if>
 				
 				<c:if test="${GRADE eq '과장'}">
-					<input type="button" value="반려">
+					<input type="button" value="반려" name="banBtn" id="banBtn">
 					<input type="button" value="결재" name="appBtn" id="appBtn">
 				</c:if>
 				
 				<c:if test="${GRADE eq '부장'}">
-					<input type="button" value="반려">
+					<input type="button" value="반려" name="banBtn" id="banBtn">
 					<input type="button" value="결재" name="appBtn" id="appBtn">
 				</c:if>
 				<input type="hidden" name="DOMSEQ" id="DOMSEQ" value="${detail.DOMSEQ}">
 				<input type="hidden" name="APPROVALSTATUS" id="APPROVALSTATUS" value="${detail.APPROVALSTATUS}">
-				<input type="hidden" name="EMPID" id="EMPID" value="${detail.EMPID}">  
+				<input type="hidden" name="APPROVALEMP" id="APPROVALEMP" value="${sessionEMPEMPID}">  
 			</td>
 		</tr>
 	</table>
-	
-	
-	
+		
 	</form>
 	
 

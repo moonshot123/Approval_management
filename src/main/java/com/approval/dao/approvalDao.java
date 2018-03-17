@@ -19,6 +19,7 @@ public interface approvalDao {
 
 	int update(Document document);
 
+	int Lineselect(Document document);
 	
-	
+	int updateban(Document document);
 }

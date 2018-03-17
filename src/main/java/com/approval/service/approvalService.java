@@ -20,8 +20,8 @@ public interface approvalService {
 
 	int appline(Document document);
 
+	int Lineselect(Document document);
 	
-
-	
+	int banline(Document document);
 
 }

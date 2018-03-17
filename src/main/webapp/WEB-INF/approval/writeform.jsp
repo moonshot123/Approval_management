@@ -78,8 +78,8 @@ $(function () {
 			<td></td>
 			<td>
 				<input type="hidden" name="EMPID" id="EMPID" value="${Employee.EMPID}">
-												
-					<input type="button" value="임시저장" name="tempBtn" id="tempBtn">
+					
+					<input type="button" value="임시저장" name="tempBtn" id="tempBtn">											
 					<!-- <input type="button" value="결재" name="appBtn" id="appBtn"> -->					
 				 
 			</td>

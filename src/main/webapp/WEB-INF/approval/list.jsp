@@ -19,7 +19,7 @@
 }
 
 function gowrite(){
-	location.href="writeform.ap?EMPID=${ID}";	
+	location.href="writeform.ap?EMPID=${EMPID}";	
 } 
  
 function detail(chk) {
@@ -53,7 +53,11 @@ $(function () {
  ${sessionEMPNAME}(${sessionEMPGRADE})님 환영합니다. <input type="button" value="로그아웃" onclick="logout()">
 	
 	<div>
-	<input type="button" value="글쓰기" onclick="gowrite()">
+		<c:set var="EMPGRADE" value="${sessionEMPGRADE}"></c:set>
+		<c:if test="${EMPGRADE eq '사원' || EMPGRADE eq '대리'}">
+			<input type="button" value="글쓰기" onclick="gowrite()">					
+		</c:if>	
+	
 		<form name="docufmt" id="docufmt">
 			<select name="serchtype" id="serchtype">
 				<option value="all">선택</option>
@@ -66,7 +70,8 @@ $(function () {
 			<input type="text" name="stdate" id="stdate">~
 			<input type="text" name="endate" id="endate">
 			<input type="button" value="검색" name="serchBtn" id="serchBtn">
-			<input type="hidden" name="EMPID" id="EMPID" value="${ID}"> 
+			<input type="hidden" name="EMPID" id="EMPID" value="${EMPID}"> 
+			
 		</form>	
 		<form name="statusfmt" id="statusfmt">
 			<select name="serchtype" id="serchtype">
@@ -94,12 +99,25 @@ $(function () {
 	<c:forEach items="${list}" var="document">	
 		<tr id="doc" onclick="detail(${document.DOMSEQ})">
 			<td>${document.DOMSEQ}</td>
-			<td>${sessionEMPNAME}</td>
+			<td>${document.EMPNAME}</td>
 			<td>${document.DOMSUB}</td>
 			<td><fmt:formatDate value="${document.DOMREGDATE}" pattern="yyyy-MM-dd"></fmt:formatDate></td>
 			<td><fmt:formatDate value="${document.APPROVALDATE}" pattern="yyyy-MM-dd"></fmt:formatDate></td>
 			<td>${document.APPROVALEMP}</td>
-			<td>${document.APPROVALSTATUS}</td>
+			
+			<c:set var="status" value="${document.APPROVALSTATUS}" /> 
+			<td>
+			<c:if test="${status eq 'temp' }">임시저장</c:if>
+			
+			<c:if test="${status eq 'wait' }">결재대기</c:if>
+			
+			<c:if test="${status eq 'app' }">결재중</c:if>
+			
+			<c:if test="${status eq 'done' }">결재완료</c:if>
+			
+			<c:if test="${status eq 'ban' }">반려</c:if>
+			
+			</td>
 		</tr>	
 	</c:forEach>	
 			

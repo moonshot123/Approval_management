@@ -11,7 +11,7 @@ public class Document {
 	private Date DOMREGDATE;		//작성일자
 	private Date APPROVALDATE;		//결제일자
 	private String APPROVALEMP;		//결제자
-	private String APPROVALSTATUS;	//결제상태
+	private String APPROVALSTATUS;	//결제상태  (임시저장:temp , 결재대기:wait, 결재중:app , 결재완료:done, 반려:ban)
 	
 	public Document(int dOMSEQ, String eMPID, String dOMSUB, String dOMCONT, Date dOMREGDATE, Date aPPROVALDATE,
 			String aPPROVALEMP, String aPPROVALSTATUS) {
