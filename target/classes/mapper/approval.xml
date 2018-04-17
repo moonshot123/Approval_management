@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="approval">
+	
+	<select id="logincheck" parameterType="String" resultType="com.approval.vo.Employee">
+		select 
+			
+			EMPSEQ
+			,EMPNAME
+			,EMPGRADE
+			,EMPID
+			,EMPPW
+			 
+		from AEMPLOYEE 
+		where EMPID = #{empid}	
+	</select>
+	
+	
+	<select id="getdetail" parameterType="integer" resultType="com.approval.vo.Document">
+		SELECT 
+				DOMSEQ
+				,EMPID
+				,DOMSUB
+				,DOMCONT
+				,DOMREGDATE
+				,APPROVALDATE
+				,APPROVALEMP
+				,APPROVALSTATUS  
+				
+		FROM ADOCUMENT
+		WHERE DOMSEQ = #{dOMSEQ}
+	
+	</select>
+	
+		
+	<insert id="write" parameterType="com.approval.vo.Document">
+		insert into ADOCUMENT(
+			                    DOMSEQ
+			                    ,EMPID
+			                    ,DOMSUB
+			                    ,DOMCONT
+			                    ,DOMREGDATE
+			                    ,APPROVALSTATUS
+			                    )
+		values(
+				(select nvl(Max(DOMSEQ),0)+1 from ADOCUMENT)
+				,#{EMPID}
+				,#{DOMSUB}
+				,#{DOMCONT}
+				,sysdate
+				,#{APPROVALSTATUS}
+              )		
+	</insert>
+	
+	
+	<insert id="Lineselect" parameterType="com.approval.vo.Document">
+		insert into ALINE(
+			                    LINESEQ
+								,DOMSEQ
+								,APPROVALEMP
+								,APPROVALDATE
+								,PPROVALSTATUS
+			                    )
+		values(
+				(select nvl(Max(LINESEQ),0)+1 from ALINE)
+				,#{DOMSEQ}
+				,#{EMPID}
+				,sysdate
+				,#{APPROVALSTATUS}				
+              )		
+	</insert>
+	
+	
+	
+	
+	<select id="list" parameterType="hashmap" resultType="com.approval.vo.DocEmpLine">		
+				
+			select 				
+					ADOCUMENT.DOMSEQ				
+					,ADOCUMENT.EMPID			
+					,ADOCUMENT.DOMSUB			
+					,ADOCUMENT.DOMCONT			
+					,ADOCUMENT.DOMREGDATE		
+					,ADOCUMENT.APPROVALDATE		
+					,ADOCUMENT.APPROVALEMP		
+					,ADOCUMENT.APPROVALSTATUS	
+					,AEMPLOYEE.EMPSEQ			
+					,AEMPLOYEE.EMPNAME		
+					,AEMPLOYEE.EMPGRADE	
+									
+				FROM ADOCUMENT left join AEMPLOYEE
+				ON ADOCUMENT.EMPID=AEMPLOYEE.EMPID
+				WHERE  1=1 
+									
+			<if test=" EMPGRADE == '사원' ">
+                    and  ADOCUMENT.EMPID = #{EMPID}
+            </if>
+                
+            <if test=" EMPGRADE == '대리' ">
+                    and ADOCUMENT.EMPID = #{EMPID}                     	
+            </if>
+                
+            <if test=" EMPGRADE == '과장' ">
+                    and  APPROVALSTATUS ='wait'             	  
+            </if>
+                
+            <if test=" EMPGRADE == '부장' ">
+                    and  APPROVALSTATUS ='app'
+            </if>
+		             
+        <if test="serchtype != null and serchtype != '' ">     
+            <if test="serchtype == 'EMPNAME' ">
+			 		and EMPNAME like '%' || #{serchtext} || '%'
+			</if>
+			 		
+			<if test="serchtype == 'DOMSUB' ">
+			 		and DOMSUB like '%' || #{serchtext} || '%'			
+			</if>
+			 		
+			<if test="serchtype == 'APPROVALEMP' ">
+					and APPROVALEMP like '%' || #{serchtext} || '%'			
+			</if>               
+		</if>			
+		
+			
+		<if test="stdate != null and stdate != '' ">
+			and to_char(DOMREGDATE,'yyyy-MM-dd') >= #{stdate}
+			and to_char(DOMREGDATE,'yyyy-MM-dd') <![CDATA[<=]]> #{endate} 
+		</if> 
+		
+		
+		<if test="appserchtype != null and appserchtype != '' ">
+			<if test="appserchtype == 'temp' ">
+				and APPROVALSTATUS ='temp' 
+			</if>
+			<if test="appserchtype == 'wait' ">
+				and APPROVALSTATUS ='wait' 
+			</if>
+			<if test="appserchtype == 'app' ">
+				and APPROVALSTATUS ='app' 
+			</if>
+			<if test="appserchtype == 'done' ">
+				and APPROVALSTATUS ='done' 
+			</if>
+			<if test="appserchtype == 'ban' ">
+				and APPROVALSTATUS ='ban' 
+			</if>
+		</if>
+										
+	</select>
+		
+		
+		
+	<update id="approval.update" parameterType="com.approval.vo.Document">
+		
+		update ADOCUMENT 
+		set 
+		
+		<if test=" APPROVALSTATUS == 'temp' ">
+			APPROVALSTATUS =  'wait'
+		</if>
+		
+		<if test=" APPROVALSTATUS == 'wait' ">
+			APPROVALSTATUS =  'app'
+			,APPROVALDATE = sysdate
+			,APPROVALEMP = #{APPROVALEMP}
+		</if>
+		
+		<if test=" APPROVALSTATUS == 'app' ">
+			APPROVALSTATUS =  'done'
+			,APPROVALDATE = sysdate
+			,APPROVALEMP = #{APPROVALEMP}
+		</if>
+		
+		<if test=" APPROVALSTATUS == 'ban' ">
+			APPROVALSTATUS =  'ban'
+			,APPROVALDATE = sysdate
+			,APPROVALEMP = #{APPROVALEMP}
+		</if>
+								
+		where DOMSEQ = #{DOMSEQ}
+				
+	</update>
+	
+	
+	
+	<!-- 마이플랫폼 -->
+	<select id="milist" resultType="com.approval.vo.Employee">
+		select 
+			
+			EMPSEQ
+			,EMPNAME
+			,EMPGRADE
+			,EMPID
+			,EMPPW
+			 
+		from AEMPLOYEE 
+	</select>
+	
+	
+	<insert id="setmilist" parameterType="com.approval.vo.Employee">
+		insert into AEMPLOYEE(
+				                EMPSEQ 
+								,EMPNAME 
+								,EMPGRADE 
+								,EMPID 
+								,EMPPW 
+			                 )
+		values(
+				(select nvl(Max(EMPSEQ),0)+1 from AEMPLOYEE)
+				,#{EMPNAME}
+				,#{EMPGRADE}
+				,#{EMPID}
+				,#{EMPPW}
+              )		
+	
+	</insert>
+	
+</mapper>	

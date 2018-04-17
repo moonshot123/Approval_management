@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="spmapper">
+
+	<select id="checkid" parameterType="String" resultType="Integer">
+		
+		select 
+		count(*) 
+		from SPMEMBER 
+		where
+		MEMID = #{id}		
+		
+	</select>
+
+
+	<insert id="insertmem" parameterType="com.springboard.vo.SpBoardMemVo">
+		insert into SPMEMBER(
+								MEMSEQ
+								,MEMID
+								,MEMNAME
+								,MEMPW
+								,REGDATE
+								,MEMSTAUS									
+		)
+		values(
+				(select nvl(MAX(MEMSEQ),0)+1 from SPMEMBER)
+				,#{mem_id}
+				,#{mem_name}
+				,#{mem_pw}
+				,sysdate
+				,'Y'
+		)
+	</insert>
+
+
+	<insert id="write" parameterType="com.springboard.vo.SpBoardVo">
+		insert into SPBOARD(
+								SEQ
+								,MEMID
+								,BOARDSUBJECT
+								,BOARDCONTENT
+								,REGDATE
+								,VIEWCNT
+								,FILENAME
+								,FILEPATH									
+		)values(
+				(select nvl(MAX(SEQ),0)+1 from SPBOARD)
+				,#{mem_id}
+				,#{board_subject}
+				,#{board_content}
+				,sysdate
+				,0
+				,#{file_name}
+				,#{file_path}
+		)
+	</insert>
+
+
+	<select id="loginmem" parameterType="String" resultType="com.springboard.vo.SpBoardMemVo">
+		select 	MEMSEQ 		mem_seq
+				,MEMID 		mem_id
+				,MEMNAME 	mem_name
+				,MEMPW 		mem_pw
+				,REGDATE 	reg_date
+				,MEMSTAUS 	mem_staus
+		from SPMEMBER
+		where MEMID = #{id} 			
+	</select>
+
+
+	<select id="getlist" resultType="com.springboard.vo.SpBoardVo">	
+		select  
+				SEQ				seq
+				,MEMID			mem_id
+				,BOARDSUBJECT	board_subject
+				,BOARDCONTENT	board_content
+				,REGDATE		reg_date
+				,UPTDATE		upt_date	
+				,VIEWCNT		view_cnt
+				,FILENAME		file_name
+				,FILEPATH		file_path
+		from SPBOARD
+		where 1=1			
+	</select>
+
+	
+	<select id="getboard" resultType="com.springboard.vo.SpBoardVo" parameterType="String">	
+		select  
+				SEQ				seq
+				,MEMID			mem_id
+				,BOARDSUBJECT	board_subject
+				,BOARDCONTENT	board_content
+				,REGDATE		reg_date
+				,UPTDATE		upt_date	
+				,VIEWCNT		view_cnt
+				,FILENAME		file_name
+				,FILEPATH		file_path
+		from SPBOARD
+		where SEQ = #{seq}			
+	</select>
+	
+	
+	
+	
+	<update id="withdraw" parameterType="String">
+		update SPMEMBER   	
+		set MEMSTAUS = 'N'
+		WHERE MEMID = #{id}		
+	</update>
+</mapper>

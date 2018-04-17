@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sell">
+
+	<select id="list" resultType="com.sell.vo.product">
+		select 
+				SELLSEQ 	sellseq 	
+				,PRICE 		price
+				,NAME 		name
+				,STORY		story
+				,IMGPATH	imgpath
+		from SPRODUCT
+		where 1=1						
+	</select>
+	
+		
+	<insert id="order" parameterType="com.sell.vo.orderProduct">
+		insert into SORDERPRODUCT(
+			                    ORDERSEQ
+								,SELLSEQ
+								,SELLDONE
+			                    )
+		values(
+				#{orderseq}
+				,#{sellseq}
+				,'Y'
+              )		
+	</insert>
+	
+	
+	<select id="orderlist" resultType="com.sell.vo.orderlistVO">
+		SELECT ORDERSEQ						orderseq
+			   ,SORDERPRODUCT.SELLSEQ		sellseq
+			   ,SELLDONE					selldone				
+			   ,PRICE 						price
+			   ,NAME 						name
+			   ,STORY						story
+			   ,IMGPATH						imgpath
+		FROM SORDERPRODUCT join SPRODUCT
+		ON 	SORDERPRODUCT.SELLSEQ = SPRODUCT.SELLSEQ
+		WHERE SORDERPRODUCT.SELLDONE ='Y'
+		order by SORDERPRODUCT.ORDERSEQ
+	</select>
+	
+	
+	<update id="cancel" parameterType="String">
+		update SORDERPRODUCT 
+		set SELLDONE = 'N'
+		where ORDERSEQ = #{orderseq}
+	</update>
+	
+	
+	
+</mapper>	

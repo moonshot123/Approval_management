@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pos">
+
+	<select id="menuList" resultType="com.pos.vo.menuVO">
+	select  
+			MENUSEQ
+            ,NAME
+            ,TYPE
+            ,PRICE
+	from POSMENU
+	
+	</select>
+	
+	<select id="sellList" resultType="com.pos.vo.sellVO">
+	select  
+			MENUSEQ
+            ,NAME
+            ,TYPE
+            ,PRICE
+	from POSMENU
+	
+	</select>
+	
+	
+	
+</mapper>	
