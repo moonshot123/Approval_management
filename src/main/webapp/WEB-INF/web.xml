@@ -4,7 +4,10 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+<<<<<<< HEAD
 	<!-- context-param DB정보연결정보 입력 -->
+=======
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/root-context.xml</param-value>
@@ -16,7 +19,10 @@
 	</listener>
 
 	<!-- Processes application requests -->
+<<<<<<< HEAD
 	<!-- context-param DB정보연결정보 입력 -->
+=======
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -26,7 +32,11 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+<<<<<<< HEAD
 	<!--      -->
+=======
+		
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>

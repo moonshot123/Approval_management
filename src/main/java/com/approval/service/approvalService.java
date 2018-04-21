@@ -21,10 +21,15 @@ public interface approvalService {
 	int appline(Document document);
 
 	int Lineselect(Document document);
+<<<<<<< HEAD
 
 	List<Employee> milist();
 
 	int setlistmi(Employee list);
 	
+=======
+	
+	int banline(Document document);
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 
 }

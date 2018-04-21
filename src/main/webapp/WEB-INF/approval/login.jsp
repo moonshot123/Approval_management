@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<<<<<<< HEAD
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
+=======
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,11 +14,14 @@
 <script src="/resources/js/jquery-3.3.1.js"></script>
 <script src="/resources/jquery-ui-1.12.1/jquery-ui.min.js"></script>
 
+<<<<<<< HEAD
 <link href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script src="/resources/bootstrap/js/bootstrap.min.js"></script>
 
 
 
+=======
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 <script type="text/javascript">
 	var checkloginid = '${ID}';
 	var checkloginpw = '${PW}';
@@ -33,6 +39,7 @@
 			
 			if($("#EMPID").val() == ""){
 				alert("아이디입력하세요.");
+<<<<<<< HEAD
 				$("#EMPID").focus();
 				return false;
 			}
@@ -66,6 +73,25 @@
 		});
 		
 		
+=======
+			}
+				
+			if($("#EMPPW").val().trim() == ""){
+				alert("비밀번호를 입력하세요.");
+			}
+			
+			if($("#EMPID").val() != "" && $("#EMPID").val() != ""){				
+				
+				$("#logfmt").attr("action","login.ap");
+				$("#logfmt").attr("method","post");
+				$("#logfmt").submit();
+				
+			}	
+						
+		});
+		
+				
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 	})
 
 </script>
@@ -76,6 +102,7 @@ login
 <form id="logfmt" name="logfmt">
 	아이디:<input type="text" name="EMPID" id="EMPID" placeholder="아이디를 입력하세요."><br>
 	비밀번호:<input type="password" name="EMPPW" id="EMPPW" placeholder="비밀번호를 입력하세요."><br>
+<<<<<<< HEAD
 	<input type="button" name="logBtn" id="logBtn" value="로그인" class="btn btn-primary">	
 </form>
 <br><br>
@@ -135,5 +162,10 @@ login
 		MBR_USER_ID: 컨트롤 + 쉬프트 + y 소문자로 바뀜, 대문자도 있음			
 	-->
 
+=======
+	<input type="button" name="logBtn" id="logBtn" value="로그인">	
+</form>
+
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 </body>
 </html>

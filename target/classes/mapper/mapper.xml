@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 
@@ -177,3 +178,184 @@ mapper >> mybitis
 </mapper>
 
 
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+
+mapper >> mybitis
+	
+	resultmap 사용하는 방법 알어둬야함
+	
+	이거 바꾸면 아래 리절트 타입으로 바꿔줘야함
+	
+	
+ -->	 
+<mapper namespace="mapper">
+	<select id="boardlist" resultType="com.board.vo.boardVO">
+		select 	
+			SEQ, 
+			mem_id, 
+			mem_name, 
+			board_subject,
+			board_content,
+			reg_date,
+			upt_date,
+			view_cnt
+		from board_study_bak
+		<!-- <if test="sel == 'mem_id'">
+			where mem_id like #{serch}
+		</if>
+		<if test="sel =='board_subject'">
+			where mem_id like #{serch}
+		</if>
+		<if test="sel =='board_sc'">
+			where mem_id like #{serch}
+		</if> -->
+	</select>
+	
+	
+	<select id="boardlistmap" resultType="com.board.vo.boardVO" parameterType="hashmap">
+		select * from		
+			(select
+				rownum rnum, 	
+				SEQ, 
+				mem_id, 
+				mem_name, 
+				board_subject,
+				board_content,
+				reg_date,
+				upt_date,
+				view_cnt
+			from board_study_bak
+			where 1=1
+			<if test="sel == 'mem_id'">
+				and mem_id like '%'||#{serch}||'%'
+			</if>
+			<if test="sel =='board_subject'">
+				and board_subject like '%'||#{serch}||'%'
+			</if>
+			<if test="sel =='board_sc'">
+				and( mem_id like '%'||#{serch}||'%' or
+				board_subject like '%'||#{serch}||'%')
+			</if> 
+			
+			<if test="sdate != null and sdate !=''">
+				<!-- and to_char(reg_date, 'yyyy-MM-dd') between #{stDate} and #{enDate} -->
+				and to_char(reg_date,'yyyy-MM-dd') >= #{sdate}
+				and to_char(reg_date,'yyyy-MM-dd')<![CDATA[ <= ]]> #{ndate}
+			</if>
+		)where rnum > (#{pageNo}-1) * #{listSize}
+		and rnum <![CDATA[ <= ]]> #{pageNo} * #{listSize}		
+	</select>
+	
+	
+	
+	
+	<select id="countboard" parameterType="hashmap" resultType="integer">
+		select count(*) from board_study_bak
+			where 1=1
+			<if test="sel == 'mem_id'">
+				and mem_id like '%'||#{serch}||'%'
+			</if>
+			<if test="sel =='board_subject'">
+				and board_subject like '%'||#{serch}||'%'
+			</if>
+			<if test="sel =='board_sc'">
+				and( mem_id like '%'||#{serch}||'%' or
+				board_subject like '%'||#{serch}||'%')
+			</if> 
+			
+			<if test="sdate != null and sdate !=''">
+				<!-- and to_char(reg_date, 'yyyy-MM-dd') between #{stDate} and #{enDate} -->
+				and to_char(reg_date,'yyyy-MM-dd') >= #{sdate}
+				and to_char(reg_date,'yyyy-MM-dd')<![CDATA[ <= ]]> #{ndate}
+			</if>		
+		
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	<insert id="boardinsert" parameterType="com.board.vo.boardVO">
+		insert into board_study_bak
+		(
+			SEQ
+			,mem_id
+			,mem_name
+			,board_subject
+			,board_content
+			,reg_date
+			,view_cnt
+		)values(
+			(select nvl(max(seq),0)+1 from board_study_bak)
+			,#{mem_id}
+			,#{mem_name}
+			,#{board_subject}
+			,#{board_content}
+			,SYSDATE
+			,0
+			)
+	</insert>
+		
+		
+	<select id="boardddetail" parameterType="int" resultType="com.board.vo.boardVO">
+		select 
+			seq,
+			mem_id, 
+			mem_name, 
+			board_subject,
+			board_content 
+		from board_study_bak 
+			where SEQ = #{seq}		
+	</select>
+	
+	
+	<update id="boardupdate" parameterType="com.board.vo.boardVO">
+		update board_study_bak 
+		set mem_id = #{mem_id}, 
+			mem_name = #{mem_name}, 
+			board_subject = #{board_subject},
+			board_content = #{board_content},
+			upt_date = SYSDATE
+		where seq = #{seq} 	
+	</update>
+	
+		
+	<delete id="delboard" parameterType="String">	
+	delete from 
+		board_study_bak 
+	where seq = #{seq}	
+	</delete>
+	
+	<!-- 
+		sql반복
+		여기 안에도 foreach 문을 사용해서 쓸수 있다. 뭔지 찾아보자.
+				
+		sql조건문
+		<if test ==""></if>	
+		
+		<choose>
+			<when test=""></when>
+		</choose>
+		
+		
+		where 1=1; 조건을 일반적으로 넣어둔다.
+		
+		<where>
+			<if test ==""></if>
+			<if test ==""></if>
+			<if test ==""></if>
+		</where>			
+	-->
+	
+
+	
+</mapper>
+
+
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad

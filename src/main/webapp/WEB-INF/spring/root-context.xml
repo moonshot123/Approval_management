@@ -6,9 +6,15 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+<<<<<<< HEAD
         <property name="url" value="jdbc:oracle:thin:@192.168.0.5:1521:XE"/>
         <property name="username" value="giantstudy"/>
         <property name="password" value="gs123"/>
+=======
+        <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+        <property name="username" value="jspid"/>
+        <property name="password" value="jsppw"/>
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
     </bean>
 	
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">

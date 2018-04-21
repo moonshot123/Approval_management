@@ -22,6 +22,7 @@
 		<beans:property name="contentType" value="text/html; charset=UTF-8"/> 
 	</beans:bean>
 	
+<<<<<<< HEAD
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <beans:property name="maxUploadSize" value="100000000"/>
         <beans:property name="maxInMemorySize" value="100000000"/>
@@ -35,5 +36,11 @@
 	<context:component-scan base-package="com.approval.*"/>
 	<context:component-scan base-package="com.sell.*"/>
 	<context:component-scan base-package="com.pos.*"/>
+=======
+	<context:component-scan base-package="com.project.*"/>
+	<context:component-scan base-package="com.board.*"/>
+	<context:component-scan base-package="com.approval.*"/>
+	
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 	
 </beans:beans>

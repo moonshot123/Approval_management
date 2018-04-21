@@ -9,9 +9,15 @@ public class Document {
 	private String DOMSUB;			//문서제목
 	private String DOMCONT;			//문서내용
 	private Date DOMREGDATE;		//작성일자
+<<<<<<< HEAD
 	private Date APPROVALDATE;		//결재일자
 	private String APPROVALEMP;		//결재자
 	private String APPROVALSTATUS;	//결재상태  (임시저장:temp , 결재대기:wait, 결재중:app , 결재완료:done, 반려:ban)
+=======
+	private Date APPROVALDATE;		//결제일자
+	private String APPROVALEMP;		//결제자
+	private String APPROVALSTATUS;	//결제상태  (임시저장:temp , 결재대기:wait, 결재중:app , 결재완료:done, 반려:ban)
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 	
 	public Document(int dOMSEQ, String eMPID, String dOMSUB, String dOMCONT, Date dOMREGDATE, Date aPPROVALDATE,
 			String aPPROVALEMP, String aPPROVALSTATUS) {

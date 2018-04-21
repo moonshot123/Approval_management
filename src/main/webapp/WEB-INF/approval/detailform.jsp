@@ -12,9 +12,12 @@
 <script src="/resources/js/jquery-3.3.1.js"></script>
 <script src="/resources/jquery-ui-1.12.1/jquery-ui.min.js"></script>
 
+<<<<<<< HEAD
 <link href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script src="/resources/bootstrap/js/bootstrap.min.js"></script>
 
+=======
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 <script type="text/javascript">
 
 $(function () {
@@ -26,7 +29,11 @@ $(function () {
 	});
 	
 	$("#banBtn").click(function(){
+<<<<<<< HEAD
 		$("#appline").attr("action","approve.ap");
+=======
+		$("#appline").attr("action","ban.ap");
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 		$("#appline").attr("method","get");
 		$("#appline").submit();
 	});
@@ -41,7 +48,11 @@ $(function () {
 <body>
 
 <form>
+<<<<<<< HEAD
 		<table class="table table-hover">
+=======
+		<table border="1px">
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 			<tr>
 				<td width="70">결재요청</td>
 				<td width="70">과장</td>
@@ -66,8 +77,14 @@ $(function () {
 	</form>
 
 
+<<<<<<< HEAD
 	<form id="appline" name="appline">	
 	<table class="table table-hover">
+=======
+
+	<form id="appline" name="appline">	
+	<table border="1px">
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 		<tr>
 			<td>번호</td>
 			<td><input type="text" name="" id="" value="${detail.DOMSEQ}" readonly></td>
@@ -88,6 +105,7 @@ $(function () {
 			<td>
 				<textarea rows="10" cols="30" name="" id="" readonly>${detail.DOMCONT}</textarea>
 			</td>
+<<<<<<< HEAD
 		</tr>				
 	</table>
 		<c:set var="DETAIL" value="${detail}" />
@@ -114,6 +132,39 @@ $(function () {
 				<input type="hidden" name="APPROVALSTATUS" id="APPROVALSTATUS" value="${detail.APPROVALSTATUS}">
 				<input type="hidden" name="APPROVALEMP" id="APPROVALEMP" value="${sessionEMPEMPID}">  		
 	
+=======
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				
+				<c:set var="GRADE" value="${sessionEMPGRADE}" />
+
+				<c:if test="${GRADE eq '사원'}">
+					<input type="button" value="결재" name="appBtn" id="appBtn">
+				</c:if>
+				
+				<c:if test="${GRADE eq '대리'}">
+					<input type="button" value="결재" name="appBtn" id="appBtn">
+				</c:if>
+				
+				<c:if test="${GRADE eq '과장'}">
+					<input type="button" value="반려" name="banBtn" id="banBtn">
+					<input type="button" value="결재" name="appBtn" id="appBtn">
+				</c:if>
+				
+				<c:if test="${GRADE eq '부장'}">
+					<input type="button" value="반려" name="banBtn" id="banBtn">
+					<input type="button" value="결재" name="appBtn" id="appBtn">
+				</c:if>
+				<input type="hidden" name="DOMSEQ" id="DOMSEQ" value="${detail.DOMSEQ}">
+				<input type="hidden" name="APPROVALSTATUS" id="APPROVALSTATUS" value="${detail.APPROVALSTATUS}">
+				<input type="hidden" name="APPROVALEMP" id="APPROVALEMP" value="${sessionEMPEMPID}">  
+			</td>
+		</tr>
+	</table>
+		
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 	</form>
 	
 

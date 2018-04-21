@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 Manifest-Version: 1.0
 Built-By: JUNG WOO
 Build-Jdk: 1.8.0_111
 Created-By: Maven Integration for Eclipse
 
+=======
+Manifest-Version: 1.0
+Built-By: JUNG WOO
+Build-Jdk: 1.8.0_111
+Created-By: Maven Integration for Eclipse
+
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad

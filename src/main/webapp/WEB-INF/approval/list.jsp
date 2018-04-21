@@ -10,9 +10,12 @@
 <script src="/resources/js/jquery-3.3.1.js"></script>
 <script src="/resources/jquery-ui-1.12.1/jquery-ui.min.js"></script>
 
+<<<<<<< HEAD
 <link href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script src="/resources/bootstrap/js/bootstrap.min.js"></script>
 
+=======
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
@@ -26,6 +29,7 @@ function gowrite(){
 } 
  
 function detail(chk) {
+<<<<<<< HEAD
 	location.href="detailform.ap?DOMSEQ="+chk;
 }
 
@@ -41,10 +45,25 @@ $(function () {
 	});
 	
 		
+=======
+	location.href="detailform.ap?DOMSEQ="+chk+"";
+}
+
+$(function () {
+	$("#stdate").datepicker({		
+	});
+	
+	$("#endate").datepicker({		
+	});
+	
+	
+	
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 	$("#serchBtn").click(function () {
 		$("#docufmt").attr("action","list.ap");
 		$("#docufmt").attr("method","post");
 		$("#docufmt").submit();
+<<<<<<< HEAD
 	});
 	
 	$("#statusfmt").on('change',function () {
@@ -58,19 +77,38 @@ $(function () {
 
 
 
+=======
+	})
+	
+	
+	
+	
+})
+
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 </script>
 </head>
 <body>
 
+<<<<<<< HEAD
  ${sessionEMPNAME}(${sessionEMPGRADE})님 환영합니다. 
  <input type="button" value="로그아웃" onclick="logout()" class="btn btn-primary">
+=======
+ ${sessionEMPNAME}(${sessionEMPGRADE})님 환영합니다. <input type="button" value="로그아웃" onclick="logout()">
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 	
 	<div>
 		<c:set var="EMPGRADE" value="${sessionEMPGRADE}"></c:set>
 		<c:if test="${EMPGRADE eq '사원' || EMPGRADE eq '대리'}">
+<<<<<<< HEAD
 			<input type="button" value="글쓰기" onclick="gowrite()" class="btn btn-primary">					
 		</c:if>	
 		
+=======
+			<input type="button" value="글쓰기" onclick="gowrite()">					
+		</c:if>	
+	
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 		<form name="docufmt" id="docufmt">
 			<select name="serchtype" id="serchtype">
 				<option value="all">선택</option>
@@ -82,25 +120,42 @@ $(function () {
 			<br>
 			<input type="text" name="stdate" id="stdate">~
 			<input type="text" name="endate" id="endate">
+<<<<<<< HEAD
 			<input type="button" value="검색" name="serchBtn" id="serchBtn" class="btn btn-primary">
 			<input type="hidden" name="EMPID" id="EMPID" value="${EMPID}"> 			
 		</form>
 			
 		<form name="statusfmt" id="statusfmt" >
 			<select name="appserchtype" id="appserchtype" >
+=======
+			<input type="button" value="검색" name="serchBtn" id="serchBtn">
+			<input type="hidden" name="EMPID" id="EMPID" value="${EMPID}"> 
+			
+		</form>	
+		<form name="statusfmt" id="statusfmt">
+			<select name="serchtype" id="serchtype">
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 				<option value="status">결재상태</option>
 				<option value="temp">임시저장</option>
 				<option value="wait">결재대기</option>
 				<option value="app">결재중</option>
 				<option value="done">결재완료</option>
+<<<<<<< HEAD
 				<option value="ban">반려</option>
 			</select>
 			<input type="hidden" name="EMPID" id="EMPID" value="${EMPID}">
+=======
+			</select>
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 		</form>
 		<br>
 	</div>
 	
+<<<<<<< HEAD
 	 <table class="table table-hover">
+=======
+	<table border="1px">
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 		<tr>
 			<td>번호</td>
 			<td>작성자</td>
@@ -109,7 +164,12 @@ $(function () {
 			<td>결재일</td>
 			<td>결재자</td>
 			<td>결재상태</td>			
+<<<<<<< HEAD
 		</tr>		
+=======
+		</tr>
+
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 	<c:forEach items="${list}" var="document">	
 		<tr id="doc" onclick="detail(${document.DOMSEQ})">
 			<td>${document.DOMSEQ}</td>
@@ -137,6 +197,10 @@ $(function () {
 			
 	</table>
 	
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 	<div>
 		
 	</div>

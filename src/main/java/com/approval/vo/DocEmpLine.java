@@ -8,9 +8,15 @@ public class DocEmpLine {
 	private String DOMSUB;			//문서제목
 	private String DOMCONT;			//문서내용
 	private Date DOMREGDATE;		//작성일자
+<<<<<<< HEAD
 	private Date APPROVALDATE;		//결재일자
 	private String APPROVALEMP;		//결재자
 	private String APPROVALSTATUS;	//결재상태
+=======
+	private Date APPROVALDATE;		//결제일자
+	private String APPROVALEMP;		//결제자
+	private String APPROVALSTATUS;	//결제상태
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 	private int EMPSEQ;				//사원번호
 	private String EMPNAME;			//사원이름
 	private String EMPGRADE;		//사원직급

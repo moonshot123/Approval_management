@@ -67,6 +67,7 @@ public class approvalServiceImpl implements approvalService{
 
 
 	@Override
+<<<<<<< HEAD
 	public List<Employee> milist() {
 		// TODO Auto-generated method stub
 		List<Employee> list= approvalDao.milist();
@@ -82,6 +83,14 @@ public class approvalServiceImpl implements approvalService{
 	}
 
 
+=======
+	public int banline(Document document) {
+		// TODO Auto-generated method stub
+		int cnt = approvalDao.updateban(document);
+		return cnt;
+	}
+
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 	
 	
 }

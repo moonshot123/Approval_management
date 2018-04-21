@@ -6,9 +6,15 @@ public class Line {
 	
 	private int LINESEQ;			//라인번호
 	private int DOMSEQ;				//문서번호
+<<<<<<< HEAD
 	private String APPROVALEMP;		//결재사원
 	private Date APPROVALDATE;		//결재일
 	private String PPROVALSTATUS;	//결재상태
+=======
+	private String APPROVALEMP;		//결제사원
+	private Date APPROVALDATE;		//결제일
+	private String PPROVALSTATUS;	//결제상태
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 	
 	public Line(){}
 	public Line(int lINESEQ, int dOMSEQ, String aPPROVALEMP, Date aPPROVALDATE, String pPROVALSTATUS) {

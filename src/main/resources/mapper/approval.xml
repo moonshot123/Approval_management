@@ -18,8 +18,13 @@
 	
 	
 	<select id="getdetail" parameterType="integer" resultType="com.approval.vo.Document">
+<<<<<<< HEAD
 		SELECT 
 				DOMSEQ
+=======
+		SELECT DOMSEQ
+		
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 				,EMPID
 				,DOMSUB
 				,DOMCONT
@@ -30,7 +35,11 @@
 				
 		FROM ADOCUMENT
 		WHERE DOMSEQ = #{dOMSEQ}
+<<<<<<< HEAD
 	
+=======
+		    
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 	</select>
 	
 		
@@ -48,12 +57,20 @@
 				,#{EMPID}
 				,#{DOMSUB}
 				,#{DOMCONT}
+<<<<<<< HEAD
 				,sysdate
 				,#{APPROVALSTATUS}
               )		
 	</insert>
 	
 	
+=======
+				,sysdate,
+				'temp'
+              )		
+	</insert>
+	
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 	<insert id="Lineselect" parameterType="com.approval.vo.Document">
 		insert into ALINE(
 			                    LINESEQ
@@ -67,14 +84,24 @@
 				,#{DOMSEQ}
 				,#{EMPID}
 				,sysdate
+<<<<<<< HEAD
 				,#{APPROVALSTATUS}				
+=======
+				,'temp'
+				
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
               )		
 	</insert>
 	
 	
 	
 	
+<<<<<<< HEAD
 	<select id="list" parameterType="hashmap" resultType="com.approval.vo.DocEmpLine">		
+=======
+	<select id="list" parameterType="hashmap" resultType="com.approval.vo.DocEmpLine">
+		
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 				
 			select 				
 					ADOCUMENT.DOMSEQ				
@@ -92,6 +119,7 @@
 				FROM ADOCUMENT left join AEMPLOYEE
 				ON ADOCUMENT.EMPID=AEMPLOYEE.EMPID
 				WHERE  1=1 
+<<<<<<< HEAD
 									
 			<if test=" EMPGRADE == '사원' ">
                     and  ADOCUMENT.EMPID = #{EMPID}
@@ -152,6 +180,45 @@
 		
 		
 		
+=======
+			
+			   <if test=" EMPGRADE == '사원' ">
+                    and  ADOCUMENT.EMPID = #{EMPID}
+               </if>
+                
+               <if test=" EMPGRADE == '대리' ">
+                    and ADOCUMENT.EMPID = #{EMPID}                     	
+               </if>
+                
+               <if test=" EMPGRADE == '과장' ">
+                    and  APPROVALSTATUS ='wait'             	  
+               </if>
+                
+               <if test=" EMPGRADE == '부장' ">
+                    and  APPROVALSTATUS ='app'
+               </if>
+	
+			
+		<if test="serchtype == 'EMPNAME' ">
+			and EMPNAME like '%' || #{serchtext} || '%'
+		</if>
+			
+		<if test="serchtype == 'DOMSUB' ">
+			and DOMSUB like '%' || #{serchtext} || '%'			
+		</if>
+		
+		<if test="serchtype == 'APPROVALEMP' ">
+			and APPROVALEMP like '%' || #{serchtext} || '%'			
+		</if>	
+			
+		<if test="stdate != null and stdate != '' ">
+			and to_char(DOMREGDATE,'MM/dd/yyyy') >= #{stdate}
+			and to_char(DOMREGDATE,'MM/dd/yyyy') <![CDATA[<=]]> #{endate} 
+		</if> 
+						
+	</select>
+	
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 	<update id="approval.update" parameterType="com.approval.vo.Document">
 		
 		update ADOCUMENT 
@@ -163,12 +230,16 @@
 		
 		<if test=" APPROVALSTATUS == 'wait' ">
 			APPROVALSTATUS =  'app'
+<<<<<<< HEAD
 			,APPROVALDATE = sysdate
 			,APPROVALEMP = #{APPROVALEMP}
+=======
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 		</if>
 		
 		<if test=" APPROVALSTATUS == 'app' ">
 			APPROVALSTATUS =  'done'
+<<<<<<< HEAD
 			,APPROVALDATE = sysdate
 			,APPROVALEMP = #{APPROVALEMP}
 		</if>
@@ -179,11 +250,16 @@
 			,APPROVALEMP = #{APPROVALEMP}
 		</if>
 								
+=======
+		</if>
+				
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 		where DOMSEQ = #{DOMSEQ}
 				
 	</update>
 	
 	
+<<<<<<< HEAD
 	
 	<!-- 마이플랫폼 -->
 	<select id="milist" resultType="com.approval.vo.Employee">
@@ -216,5 +292,17 @@
               )		
 	
 	</insert>
+=======
+	<update id="approval.updateban" parameterType="com.approval.vo.Document">
+		
+		update ADOCUMENT 
+		set APPROVALSTATUS =  'ban'		
+		where DOMSEQ = #{DOMSEQ}
+				
+	</update>
+	
+	
+	
+>>>>>>> 9c4572edbe00ea94482a76c956f2cc587eb636ad
 	
 </mapper>	
