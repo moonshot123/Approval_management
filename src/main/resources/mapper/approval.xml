@@ -30,7 +30,7 @@
 				
 		FROM ADOCUMENT
 		WHERE DOMSEQ = #{dOMSEQ}
-	
+		    
 	</select>
 	
 		
@@ -127,8 +127,7 @@
 			and to_char(DOMREGDATE,'MM/dd/yyyy') >= #{stdate}
 			and to_char(DOMREGDATE,'MM/dd/yyyy') <![CDATA[<=]]> #{endate} 
 		</if> 
-					
-			
+						
 	</select>
 	
 	<update id="approval.update" parameterType="com.approval.vo.Document">
